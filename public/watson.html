@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>watson-app</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        // variável para controlar o contexto do diálogo
+        var context = '{}';
+        function enviarMensagem() {
+            // recupera mensagem digitada pelo usuário e exibe na tela
+            var texto = document.chatForm.texto.value;
+            chat = document.getElementById('chat');
+            chat.innerHTML += texto + "<br>";
+
+            // cria objeto para envio para a API
+            var input = {
+                text: texto,
+                context
+            };
+
+            // post para o serviço criado
+            $.ajax({
+                url: 'watsonAssistant',
+                type: 'post',
+                data: input,
+                // tratamento de erro do post
+                error: function (dados) {
+                    alert('Erro: ' + dados.data);
+                },
+                // tratamento de sucesso de processamento do post
+                success: function (dados) {
+                    // se ocorreu algum erro no processamento da API
+                    if (dados.status === 'ERRO')
+                        alert('Erro: ' + dados.data);
+                    // caso os dados tenham retornado com sucesso
+                    else{
+                        // exibe retorno da API e recupera o contexto para o próximo diálogo
+                        chat.innerHTML += dados.data.output.text + "<br>";
+                        context = JSON.stringify(dados.data.context);
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <form name="chatForm" method="post">
+        <input type="text" name="texto" />
+        <input type="button" onClick="enviarMensagem();" value="Enviar">
+    </form>
+    <div id="chat"></div>
+</body>
+
+</html>
