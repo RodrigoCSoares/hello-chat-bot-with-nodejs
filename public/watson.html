@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>watson-app</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/scripts/chat.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/chat.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div id="chat"></div>
+
+        <div class="col-sm-3 col-sm-offset-4 frame">
+            <ul class="chat-body"></ul>
+            <div class="msj-rta macro" style="margin:auto">                        
+                <div class="text text-r" style="background:whitesmoke !important">
+
+                    <form name="chatForm" method="post">
+                        <input class="mytext" name="texto" type="text" placeholder="Type a message" />
+                        <input class="btn btn-primary" name ="send" type="button" onClick="enviarMensagem();"  value="Enviar">
+                    </form>
+
+                </div> 
+            </div>
+        </div>
+
+    
+
+    </body>
+</html>
