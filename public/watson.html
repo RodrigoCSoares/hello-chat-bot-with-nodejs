@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>watson-app</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        // variável para controlar o contexto do diálogo
-        var context = '{}';
-        function enviarMensagem() {
-            // recupera mensagem digitada pelo usuário e exibe na tela
-            var texto = document.chatForm.texto.value;
-            chat = document.getElementById('chat');
-            chat.innerHTML += texto + "<br>";
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>watson-app</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/scripts/chat.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/chat.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </head>
 
-            // cria objeto para envio para a API
-            var input = {
-                text: texto,
-                context
-            };
+    <body>
+        <div id="chat"></div>
 
-            // post para o serviço criado
-            $.ajax({
-                url: 'watsonAssistant',
-                type: 'post',
-                data: input,
-                // tratamento de erro do post
-                error: function (dados) {
-                    alert('Erro: ' + dados.data);
-                },
-                // tratamento de sucesso de processamento do post
-                success: function (dados) {
-                    // se ocorreu algum erro no processamento da API
-                    if (dados.status === 'ERRO')
-                        alert('Erro: ' + dados.data);
-                    // caso os dados tenham retornado com sucesso
-                    else{
-                        // exibe retorno da API e recupera o contexto para o próximo diálogo
-                        chat.innerHTML += dados.data.output.text + "<br>";
-                        context = JSON.stringify(dados.data.context);
-                    }
-                }
-            });
-        }
-    </script>
-</head>
+        <div class="col-sm-3 col-sm-offset-4 frame">
+            <ul class="chat-body"></ul>
+            <div class="msj-rta macro" style="margin:auto">                        
+                <div class="text text-r" style="background:whitesmoke !important">
 
-<body>
-    <form name="chatForm" method="post">
-        <input type="text" name="texto" />
-        <input type="button" onClick="enviarMensagem();" value="Enviar">
-    </form>
-    <div id="chat"></div>
-</body>
+                    <form name="chatForm" method="post">
+                        <input class="mytext" name="texto" type="text" placeholder="Type a message" />
+                        <input class="btn btn-primary" name ="send" type="button" onClick="enviarMensagem();"  value="Enviar">
+                    </form>
 
+                </div> 
+            </div>
+        </div>
+
+    
+
+    </body>
 </html>
